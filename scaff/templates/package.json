@@ -1,0 +1,24 @@
+{
+  "name": "${package}",
+  "version": "${version}",
+  "description": "",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp": "^3.8.8",
+    "phantomjs": "^1.9.11"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "${vcs}",
+    "url": "${repository}"
+  },
+  "author": "${name} <${email}>",
+  "license": "${license}",
+  "bugs": {
+    "url": "${bts}"
+  },
+  "homepage": "${web}"
+}
