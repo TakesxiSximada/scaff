@@ -24,8 +24,8 @@ setup(
     license='BSD',
     author='TakesxiSximada',
     author_email='takesxi.sximada@gmail.com',
-    description="I'm sorry, I added a scaffolding tool too...",
-    long_description="I'm sorry, I added a scaffolding tool too...",
+    description="I'm sorry, I also I have made a scaffolding tool.",
+    long_description="I'm sorry, I also I have made a scaffolding tool.",
     zip_safe=False,
     classifiers=[
         'Development Status :: 1 - Planning',
