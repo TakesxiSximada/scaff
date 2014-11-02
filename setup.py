@@ -48,7 +48,7 @@ setup(
     install_requires=install_requires,
     test_require=test_require,
 
-    entry_points='''\
+    entry_points='''
     [console_scripts]
     scaff=scaff:main
     '''

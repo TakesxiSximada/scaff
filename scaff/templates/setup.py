@@ -14,6 +14,7 @@ def find_package_data(target, package_root):
 
 install_requires = []
 test_require = []
+package = find_packages()
 package_data = {}
 
 
@@ -40,12 +41,12 @@ setup(
         'Programming Language :: Python :: 3.4',
         ],
     platforms='any',
-    package=find_packages(),
+    package=package,
     package_data=package_data,
     include_package_data=True,
     install_requires=install_requires,
     test_require=test_require,
-    entry_points='''\
+    entry_points='''
     [console_scripts]
     '''
     )
