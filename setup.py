@@ -34,7 +34,6 @@ setup(
         'Intended Audience :: System Administrators',
         'License :: OSI Approved :: BSD License',
         'Natural Language :: English',
-        'Natural Language :: Esperanto',
         'Natural Language :: Japanese',
         'Operating System :: MacOS :: MacOS X',
         'Operating System :: Microsoft :: Windows',
