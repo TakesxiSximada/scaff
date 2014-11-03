@@ -18,7 +18,7 @@ def find_package_data(target, package_root):
 
 setup(
     name='scaff',
-    version='0.1.0',
+    version='0.1.1',
     url='https://github.com/TakesxiSximada/scaff',
     download_url='https://github.com/TakesxiSximada/scaff',
     license='BSD',
