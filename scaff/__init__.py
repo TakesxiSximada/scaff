@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 import os
 import sys
 import copy
@@ -13,6 +13,7 @@ import scaff
 DEFAULT_TEMPLATE_DIR = os.path.join(
     os.path.abspath(os.path.dirname(scaff.__file__)),
     'templates')
+
 
 class Scaffolder(object):
     'SCAFF_TEMPLATE'
@@ -58,9 +59,7 @@ class Scaffolder(object):
                     break
         return contexts
 
-
     def scaffolding(self, target_dir):
-        origin = os.getcwd()
         if not os.path.isdir(target_dir):
             os.makedirs(target_dir)
         os.chdir(target_dir)

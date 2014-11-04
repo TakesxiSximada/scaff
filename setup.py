@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 import os
 from setuptools import (
     setup,
@@ -8,6 +8,7 @@ from setuptools import (
 
 install_requires = []
 test_require = []
+
 
 def find_package_data(target, package_root):
     return [
