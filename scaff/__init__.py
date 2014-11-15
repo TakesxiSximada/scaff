@@ -59,7 +59,7 @@ class Scaffolder(object):
                     break
         return contexts
 
-    def scaffolding(self, target_dir):
+    def scaffolding(self, target_dir, typ):
         if not os.path.isdir(target_dir):
             os.makedirs(target_dir)
         os.chdir(target_dir)
@@ -67,6 +67,7 @@ class Scaffolder(object):
         custom_template_dirs = self.get_custom_template_dirs()
         template_dirs = custom_template_dirs if custom_template_dirs else []
         template_dirs.append(DEFAULT_TEMPLATE_DIR)
+        template_dirs = [os.path.join(dirpath, typ) for dirpath in template_dirs]
 
         lookupper = mako.lookup.TemplateLookup(
             directories=template_dirs,
@@ -100,11 +101,12 @@ class Scaffolder(object):
 
 def main(argv=sys.argv[1:]):
     parser = argparse.ArgumentParser()
+    parser.add_argument('-t', '--type', dest='typ', default='python')
     parser.add_argument('-d', '--directory', default=os.getcwd())
     opts = parser.parse_args(argv)
 
     scaffolder = Scaffolder()
-    scaffolder.scaffolding(opts.directory)
+    scaffolder.scaffolding(opts.directory, opts.typ)
 
 if __name__ == '__main__':
     main()
