@@ -4,6 +4,7 @@ import os
 import sys
 import copy
 import argparse
+import itertools
 from collections import OrderedDict
 
 import mako.lookup
@@ -13,6 +14,10 @@ import scaff
 DEFAULT_TEMPLATE_DIR = os.path.join(
     os.path.abspath(os.path.dirname(scaff.__file__)),
     'templates')
+
+DEFAULT_EXTRA_TEMPLATE_DIR = os.path.join(
+    os.path.abspath(os.path.dirname(scaff.__file__)),
+    'extra_templates')
 
 
 class Scaffolder(object):
@@ -98,6 +103,21 @@ class Scaffolder(object):
             with open(output_path, 'w+b') as fp:
                 fp.write(buf)
 
+        # namespace_package for python
+        package = general_contexts['package']
+        namespace = package.split('.')
+        namespace[0] = os.path.join('src', namespace[0])
+        tmpl = lookupper.get_template('src/namespace/__init__.py')
+        buf = tmpl.render()
+        for path in itertools.accumulate(namespace, func=os.path.join):
+            os.makedirs(path)
+            with open(os.path.join(path, '__init__.py'), 'w+b') as fp:
+                fp.write(buf)
+        tmpl = lookupper.get_template('src/namespace/package/__init__.py')
+        buf = tmpl.render()
+        path = os.path.join('/'.join(namespace), '__init__.py')
+        with open(path, 'w+b') as fp:
+            fp.write(buf)
 
 def main(argv=sys.argv[1:]):
     parser = argparse.ArgumentParser()

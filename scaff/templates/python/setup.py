@@ -47,6 +47,11 @@ setup(
     platforms='any',
     packages=packages,
     package_dir=package_dir,
+    namespace_packages=[
+        % for namespace in package.split('.')[:-1]:
+        '${namespace}',
+        % endfor
+        ],
     package_data=package_data,
     include_package_data=True,
     install_requires=install_requires,
