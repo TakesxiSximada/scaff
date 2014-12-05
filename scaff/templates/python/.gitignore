@@ -53,9 +53,9 @@ coverage.xml
 docs/_build/
 
 # js
-lib/*
-bower_components/*
-node_modules/
+lib
+bower_components
+node_modules
 
 # emacs
 *~
