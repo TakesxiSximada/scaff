@@ -18,6 +18,9 @@ def find_package_data(target, package_root):
         for root, dirs, files in os.walk(target)
         for filename in files
         ]
+package_data = {
+    'scaff': ['templates/**']
+    }
 
 setup(
     name='scaff',
@@ -29,7 +32,7 @@ setup(
     author_email='takesxi.sximada@gmail.com',
     description="I'm sorry, I also I have made a scaffolding tool.",
     long_description="I'm sorry, I also I have made a scaffolding tool.",
-    zip_safe=False,
+    zip_safe=True,
     classifiers=[
         'Development Status :: 1 - Planning',
         'Intended Audience :: Developers',
@@ -45,7 +48,7 @@ setup(
         ],
     platforms='any',
     packages=find_packages(),
-    package_data={'scaff': find_package_data('scaff/templates', 'scaff')},
+    package_data=package_data,
     include_package_data=True,
     install_requires=install_requires,
     test_require=test_require,
