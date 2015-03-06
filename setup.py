@@ -8,6 +8,7 @@ from setuptools import (
 
 install_requires = [
     'mako',
+    'six',
     ]
 test_require = []
 
