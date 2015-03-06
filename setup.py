@@ -13,7 +13,7 @@ test_require = []
 
 setup(
     name='scaff',
-    version='0.1.6',
+    version='0.1.7',
     url='https://github.com/TakesxiSximada/scaff',
     download_url='https://github.com/TakesxiSximada/scaff',
     license='BSD',
