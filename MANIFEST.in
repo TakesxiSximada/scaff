@@ -1,1 +1,1 @@
-recursive-include scaff/templates *
+graft scaff/templates/python/src/namespace/
