@@ -11,17 +11,6 @@ install_requires = [
     ]
 test_require = []
 
-
-def find_package_data(target, package_root):
-    return [
-        os.path.relpath(os.path.join(root, filename), package_root)
-        for root, dirs, files in os.walk(target)
-        for filename in files
-        ]
-package_data = {
-    'scaff': ['templates/**']
-    }
-
 setup(
     name='scaff',
     version='0.1.6',
@@ -48,11 +37,9 @@ setup(
         ],
     platforms='any',
     packages=find_packages(),
-    package_data=package_data,
     include_package_data=True,
     install_requires=install_requires,
     test_require=test_require,
-
     entry_points='''
     [console_scripts]
     scaff=scaff:main
