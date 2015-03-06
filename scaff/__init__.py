@@ -4,11 +4,14 @@ import os
 import sys
 import copy
 import argparse
-import itertools
 from collections import OrderedDict
 
 import mako.lookup
 import scaff
+from .compat import (
+    get_input,
+    accumulate,
+    )
 
 
 DEFAULT_TEMPLATE_DIR = os.path.join(
@@ -58,7 +61,7 @@ class Scaffolder(object):
             prompt += ': '
 
             while True:
-                val = input(prompt).strip()
+                val = get_input(prompt).strip()
                 contexts[key] = val or value
                 if contexts[key]:
                     break
@@ -109,7 +112,7 @@ class Scaffolder(object):
         namespace[0] = os.path.join('src', namespace[0])
         tmpl = lookupper.get_template('src/namespace/__init__.py')
         buf = tmpl.render()
-        for path in itertools.accumulate(namespace, func=os.path.join):
+        for path in accumulate(namespace, func=os.path.join):
             os.makedirs(path)
             with open(os.path.join(path, '__init__.py'), 'w+b') as fp:
                 fp.write(buf)
@@ -118,6 +121,7 @@ class Scaffolder(object):
         path = os.path.join('/'.join(namespace), '__init__.py')
         with open(path, 'w+b') as fp:
             fp.write(buf)
+
 
 def main(argv=sys.argv[1:]):
     parser = argparse.ArgumentParser()
