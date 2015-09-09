@@ -6,35 +6,44 @@ from setuptools import (
     find_packages,
     )
 
-
-def find_package_data(target, package_root):
-    return [
-        os.path.relpath(os.path.join(root, filename), package_root)
-        for root, dirs, files in os.walk(target)
-        for filename in files
-        ]
-
 src = 'src'
-install_requires = []
-test_require = []
-packages = find_packages(src)
-package_dir = {'': src}
-package_data = {}
+here = lambda path: os.path.join(os.path.dirname(os.path.abspath(__file__)), path)
+get_requires = lambda path: open(here(path), 'rt').readlines()
 
+readme_path = here('README.rst')
+
+requirements_txt = 'requirements/install.txt'
+install_requirements = get_requires(requirements_txt)
+test_requirements = get_requires('requirements/test.txt')
+
+
+def find_version():
+    for root, dirs, files in os.walk(here(src)):
+        for filename in files:
+            if filename == 'version.txt':
+                version_file = os.path.join(root, filename)
+                with open(version_file, 'rt') as fp:
+                    for line in fp:
+                        line = line.strip()
+                        if line:
+                            return line
+    raise ValueError('unkown version')
+
+version = find_version()
 
 setup(
     name='${package}',
-    version='${version}',
+    version=version,
     url='${web}',
     download_url='${download}',
     license='${license}',
     author='${name}',
     author_email='${email}',
     description="${description}",
-    long_description="${description}",
+    long_description=open(readme_path, 'rt').read(),
     zip_safe=False,
-    classifiers=[
-        'Development Status :: 1 - Planning',
+    classifiers=[  # see: https://pypi.python.org/pypi?%3Aaction=list_classifiers
+        'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'Intended Audience :: Information Technology',
         'Intended Audience :: System Administrators',
@@ -42,20 +51,21 @@ setup(
         'Operating System :: MacOS :: MacOS X',
         'Operating System :: Microsoft :: Windows',
         'Operating System :: POSIX',
+        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.4',
         ],
     platforms='any',
-    packages=packages,
-    package_dir=package_dir,
+    packages=find_packages(src),
+    package_dir={'': src},
     namespace_packages=[
         % for namespace in package.split('.')[:-1]:
         '${namespace}',
         % endfor
         ],
-    package_data=package_data,
+    package_data={},
     include_package_data=True,
-    install_requires=install_requires,
-    test_require=test_require,
+    install_requires=install_requirements + test_requirements,
+    tests_requires=test_requirements,
     entry_points='''
     [console_scripts]
     '''
