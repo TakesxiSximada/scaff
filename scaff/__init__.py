@@ -47,6 +47,14 @@ class Scaffolder(object):
         ('gulpfile.js', {}),
         ('package.json', {}),
         ('doc/index.html', {}),
+        ('requirements/install.txt', {}),
+        ('requirements/test.txt', {}),
+        ('requirements/doc.txt', {}),
+        ('requirements/dev.txt', {}),
+        ('MANIFEST', {}),
+        ('MANIFEST.in', {}),
+        ('tox.ini', {}),
+        ('circleci.yaml', {}),
         ))
 
     def get_custom_template_dirs(self):
@@ -89,9 +97,13 @@ class Scaffolder(object):
         cur = os.getcwd()
         for recipe in self.special_contexts.keys():
             print('---> {}'.format(recipe))
-
             special_contexts = self.special_contexts[recipe]
-            tmpl = lookupper.get_template(recipe)
+            tmpl = None
+            try:
+                tmpl = lookupper.get_template(recipe)
+            except mako.exceptions.TopLevelLookupException:
+                print('skip')
+                continue
             output_path = os.path.join(cur, recipe)
 
             output_dir = os.path.dirname(output_path)
@@ -119,6 +131,12 @@ class Scaffolder(object):
         tmpl = lookupper.get_template('src/namespace/package/__init__.py')
         buf = tmpl.render()
         path = os.path.join('/'.join(namespace), '__init__.py')
+        with open(path, 'w+b') as fp:
+            fp.write(buf)
+
+        tmpl = lookupper.get_template('src/namespace/package/version.txt')
+        buf = tmpl.render(**general_contexts)
+        path = os.path.join('/'.join(namespace), 'version.txt')
         with open(path, 'w+b') as fp:
             fp.write(buf)
 
